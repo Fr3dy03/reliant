@@ -1,0 +1,1 @@
+import {describe,expect,it} from 'vitest';import {storageMode} from './dbMode';describe('storage mode',()=>{it('selects postgres when configured',()=>expect(storageMode({DATABASE_URL:'postgres://db'})).toBe('postgres'));it('uses local fallback otherwise',()=>expect(storageMode({})).toBe('local-fallback'));});
