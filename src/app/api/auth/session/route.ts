@@ -1,0 +1,1 @@
+import { NextResponse } from 'next/server';import { cookies } from 'next/headers';import { readSession } from '../../../../lib/session';export function GET(){const value=readSession(cookies().get('reliant_session')?.value);return NextResponse.json(value?{authenticated:true,address:value.address}:{authenticated:false});}

@@ -1,0 +1,1 @@
+import {describe,expect,it} from 'vitest';import {createSession,readSession} from './session';describe('sessions',()=>{it('round trips wallet identity',()=>{const token=createSession('0xAbC');expect(readSession(token)?.address).toBe('0xabc');});it('rejects tampering',()=>{const token=createSession('0xabc');expect(readSession(token+'.x')).toBeUndefined();});});
