@@ -1,0 +1,3 @@
+import { describe, expect, it } from 'vitest';
+import { validateEndpoint } from './security';
+describe('connection safety', () => { it('rejects private endpoints even in development validation', () => expect(() => validateEndpoint('http://localhost:3000/api/fixture', false)).toThrow()); it('rejects production http endpoints', () => expect(() => validateEndpoint('http://example.com/agent', true)).toThrow()); });

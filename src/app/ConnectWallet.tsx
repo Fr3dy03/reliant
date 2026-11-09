@@ -1,0 +1,4 @@
+'use client';
+import { useState } from 'react';
+import Link from 'next/link';
+export default function ConnectWallet(){const [address,setAddress]=useState('');const [error,setError]=useState('');async function connect(){setError('');const ethereum=(window as Window & {ethereum?:{request:(args:{method:string})=>Promise<string[]>}}).ethereum;if(!ethereum){setError('Install a compatible EVM wallet to connect.');return}try{const accounts=await ethereum.request({method:'eth_requestAccounts'});setAddress(accounts[0]??'');}catch{setError('Wallet connection was cancelled.')}}return address?<Link className="button" href="/app/projects">{address.slice(0,6)}…{address.slice(-4)} →</Link>:<span><button className="button" onClick={connect}>Connect wallet</button>{error&&<small className="wallet-error">{error}</small>}</span>}

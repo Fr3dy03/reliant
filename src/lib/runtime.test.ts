@@ -1,0 +1,3 @@
+import { describe, expect, it } from 'vitest';
+import { evaluate } from './evaluators';
+describe('run workflow contracts', () => { it('supports a passing fixture response', () => { expect(evaluate({ type: 'exact_match', expected: 'Paris', actual: 'Paris' }).passed).toBe(true); }); it('marks a regression', () => { expect(evaluate({ type: 'exact_match', expected: 'Paris', actual: 'London' }).passed).toBe(false); }); });

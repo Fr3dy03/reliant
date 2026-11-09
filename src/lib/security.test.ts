@@ -1,0 +1,1 @@
+import {describe,expect,it} from 'vitest';import {redact,validateEndpoint} from './security';describe('security',()=>{it('rejects private endpoints',()=>expect(()=>validateEndpoint('http://127.0.0.1:8080',false)).toThrow());it('redacts secrets',()=>expect(redact({token:'x',nested:{password:'y'}})).toEqual({'[REDACTED]':'[REDACTED]',nested:{'[REDACTED]':'[REDACTED]'}}))});

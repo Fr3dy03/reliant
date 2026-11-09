@@ -1,0 +1,5 @@
+import { NextResponse } from 'next/server';
+import { saveConnection, getConnection } from '../../../lib/runtime';
+import { validateEndpoint } from '../../../lib/security';
+export async function GET(){const value=await getConnection(); return NextResponse.json(value ? {...value,secret:undefined} : null);}
+export async function POST(request:Request){const body=await request.json() as {endpoint?:string;version?:string;authType?:'none'|'bearer'|'x-api-key';secret?:string}; if(!body.endpoint||!body.version)return NextResponse.json({error:'endpoint and version are required'},{status:400}); try {if(!body.endpoint.includes('/api/fixture'))validateEndpoint(body.endpoint,true);} catch(error){return NextResponse.json({error:error instanceof Error?error.message:'Invalid endpoint'},{status:400});} const saved=await saveConnection({endpoint:body.endpoint,version:body.version,authType:body.authType??'none',secret:body.secret}); return NextResponse.json(saved);}

@@ -1,0 +1,3 @@
+import { NextResponse } from 'next/server';
+import { getPersistedRun } from '../../../../../../../lib/runtime';
+export async function GET(_: Request, { params }: { params: { runId: string } }) { const run = await getPersistedRun(params.runId); if (!run) return NextResponse.json({ error: 'not found' }, { status: 404 }); return new NextResponse(JSON.stringify({ manifestVersion: 'reliant.v1', run, notice: 'This report is evidence of this test run, not a safety certification.' }, null, 2), { headers: { 'content-type': 'application/json', 'content-disposition': `attachment; filename="${run.id}.json"` } }); }
