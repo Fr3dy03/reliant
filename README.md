@@ -19,7 +19,7 @@ The MVP repository uses a JSON persistence adapter. Vercel serverless functions 
 ## Implementation phases
 
 - **Phase 1 foundation:** environment contracts, wallet nonce lifecycle, and PostgreSQL tenancy schema contract are included in `src/lib/env.ts`, `src/lib/authNonce.ts`, and `src/lib/schema.ts`.
-- **Phase 2 database adapter:** wire the schema to PostgreSQL/Drizzle and migrate the local runtime repository.
+- **Phase 2 database adapter:** typed Drizzle/PostgreSQL tables and a lazy database client are included in `src/lib/dbSchema.ts` and `src/lib/db.ts`; the runtime migration remains the next database step.
 - **Phase 3 wallet sessions:** add signed nonce verification and workspace sessions.
 - **Phase 4 durable runs:** move experiment execution to a durable queue/worker.
 
