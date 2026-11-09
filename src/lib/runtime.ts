@@ -6,7 +6,9 @@ import { decryptSecret, encryptSecret } from './secrets';
 
 export type Connection = { endpoint: string; version: string; authType: 'none'|'bearer'|'x-api-key'; secret?: string; secretHint?: string };
 type Stored = { runs: Run[]; cases: Case[]; connection?: Connection };
-const file = path.join(process.cwd(), '.reliant-data.json');
+// Vercel functions can only write to /tmp and that storage is ephemeral. Set
+// RELIANT_DATA_FILE to a durable mounted path when deploying outside Vercel.
+const file = process.env.RELIANT_DATA_FILE ?? (process.env.VERCEL ? '/tmp/reliant-data.json' : path.join(process.cwd(), '.reliant-data.json'));
 let memory: Stored | undefined;
 
 async function load(): Promise<Stored> {

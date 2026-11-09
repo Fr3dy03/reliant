@@ -2,7 +2,7 @@
 
 ## Architecture
 - Next.js App Router + TypeScript + Tailwind-style CSS tokens.
-- MVP persistence uses a file-backed tenant-scoped repository (`src/lib/runtime.ts`) at `.reliant-data.json`, seeded with a clearly labeled DEMO workspace. The repository interface is intentionally shaped for a PostgreSQL/Drizzle adapter.
+- MVP persistence uses a file-backed tenant-scoped repository (`src/lib/runtime.ts`) seeded with a clearly labeled DEMO workspace. Locally it uses `.reliant-data.json`; on Vercel it uses ephemeral `/tmp/reliant-data.json`. The repository interface is intentionally shaped for a PostgreSQL/Drizzle adapter.
 - Run execution calls the local fixture endpoint and evaluates cases synchronously inside the MVP API route. Production deployment should move this implementation to a Postgres-backed queue or BullMQ worker process.
 - Evaluation engine is pure and deterministic (`src/lib/evaluators.ts`). Endpoint safety and redaction are pure utilities with tests.
 - API routes expose project/run/export actions. UI is server-rendered with client interactions kept small and keyboard accessible.
