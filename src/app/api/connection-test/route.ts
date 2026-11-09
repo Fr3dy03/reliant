@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getConnection } from '../../../lib/runtime';
 import { validateEndpoint } from '../../../lib/security';
+import { requireRole } from '../../../lib/authorization';
 export async function POST(request: Request) {
+  const auth=requireRole('engineer');if(!auth.ok)return NextResponse.json({error:auth.error},{status:auth.status});
   const body = await request.json().catch(() => ({})) as { endpoint?: string };
   const connection = await getConnection();
   const endpoint = body.endpoint ?? connection?.endpoint ?? new URL('/api/fixture', request.url).toString();

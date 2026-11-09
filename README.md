@@ -23,6 +23,8 @@ The MVP repository uses a JSON persistence adapter. Vercel serverless functions 
 - **Phase 3 wallet sessions:** add signed nonce verification and workspace sessions.
 - **Phase 4 durable runs:** move experiment execution to a durable queue/worker.
 
+Current API routes require the wallet session cookie for project reads and writes. The local fallback treats an authenticated wallet as the demo workspace owner; database-backed membership and granular role storage are the next tenancy migration step.
+
 ## Local development
 
 ```bash
